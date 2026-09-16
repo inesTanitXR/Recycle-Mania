@@ -73,6 +73,11 @@ public void ItemSorted(bool correct)
             gameUI.IncrementScore();
     }
 
+    // Refresh the on-screen score right away. Previously this only happened
+    // inside SpawnNewItem(), so the point for the LAST item was never drawn
+    // and a perfect run always displayed 9/10.
+    UpdateItemCounter();
+
     currentIndex++; 
 
     if (currentIndex < itemPrefabs.Length)
@@ -96,9 +101,12 @@ IEnumerator ShowFinalMessage()
     if (finalMessageText != null)
     {
         finalMessageText.gameObject.SetActive(true);
-        finalMessageText.text = "Good job!";
+        int total = itemPrefabs != null ? itemPrefabs.Length : 0;
+        finalMessageText.text = (total > 0 && correctCount >= total)
+            ? "Perfect score! " + correctCount + "/" + total
+            : "Good job! " + correctCount + "/" + total;
     }
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(3f);
     if (finalMessageText != null)
     {
         finalMessageText.gameObject.SetActive(false);

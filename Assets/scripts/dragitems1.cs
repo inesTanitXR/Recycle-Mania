@@ -90,7 +90,7 @@ public class dragitems1 : MonoBehaviour
 
     Collider2D myCollider = GetComponent<Collider2D>();
     Collider2D[] results = new Collider2D[10];
-    int count = myCollider.OverlapCollider(new ContactFilter2D().NoFilter(), results);
+    int count = myCollider.Overlap(new ContactFilter2D().NoFilter(), results);
 
     Collider2D binHit = null;
     for (int i = 0; i < count; i++)
@@ -176,7 +176,7 @@ public class dragitems1 : MonoBehaviour
     {
         Collider2D myCollider = GetComponent<Collider2D>();
         Collider2D[] results = new Collider2D[5];
-        int count = myCollider.OverlapCollider(new ContactFilter2D().NoFilter(), results);
+        int count = myCollider.Overlap(new ContactFilter2D().NoFilter(), results);
 
         BinZoom newHighlightedBin = null;
 
